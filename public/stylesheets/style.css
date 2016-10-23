@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.julius-sans-one {
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.raleway {
+  font-family: 'Raleway', sans-serif; 
+}
