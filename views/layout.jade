@@ -4,6 +4,7 @@ html
     title= title
     meta(name='viewport' content='width=device-width,initial-scale=1.0')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Julius+Sans+One|Open+Sans|Raleway|Roboto:300')
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js')
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js')
@@ -17,5 +18,5 @@ html
     <!-- Your application bootstrap  -->
     script(src='/javascripts/main.js')
 
-  body
+  body(ng-app="MariccardomeApp")
     block content
