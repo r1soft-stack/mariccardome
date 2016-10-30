@@ -2,24 +2,24 @@ extends layout
 
 block content
     div(ng-controller="AdminController" layout="column", ng-cloak)
-        md-content(layout-padding)
-            form(name="userForm")
-                div(layout="row", layout-xs="column", layout-sm="column", layout-align="space-between center")
-                    div(flex-gt-sm="80")
-                        p The <code>md-input-container</code> gives you the flexibility to display your messages using many standard angular directives.
+        md-content(layout-padding, flex-gt-sm, class="margin-10")
+            form(name="userForm", class="md-whiteframe-3dp")
+                div(layout-gt-lg="row")
+                    md-input-container(class="md-block", flex-gt-sm)
+                        label Username
+                        input(required name="name", ng-model="user.name")
+                        div(class="hint", ng-if="showHints") Username or email
+                        div(ng-messages="userForm.name.$error")
+                            div(ng-message="required") Name is required.
+                            div(ng-message="md-maxlength") The name has to be less than 30 characters long.
 
-                            p For instance, toggle the switch
-                                span(hide-xs hide-sm) to the right
-                                span(hide-gt-sm) 'below to see the messages switch between some custom hints, and the actual error messages. Note that some of the <code>ng-messages</code> containers use <code>ngIf</code> while others use <code>ng-show</code> or <code>ng-hide</code>.
+                    div(flex="5", hide-xs, hide-sm)
 
-                    md-input-container
-                        md-switch(ng-model="showHints") Showing {{showHints ? "Hints" : "Errors"}})
+                    md-input-container(class="md-block", flex-gt-sm)
+                        label Password
+                        input(type="password", name="password", required, ng-model="user.social")
+                        div(ng-messages="userForm.password.$error")
+                            div(ng-message="required") Password is required.
 
-                    div(layout-gt-sm="row")
-                        md-input-container(class="md-block", flex-gt-sm)
-                    label Name
-                    input( required, name="name", ng-model="user.name")
-                    div(class="hint", ng-if="showHints") Tell us what we should call you!
-                    div(ng-messages="userForm.name.$error", ng-if="!showHints")
-                        div(ng-message="required") Name is required.
-                        div(ng-message="md-maxlength") The name has to be less than 30 characters long
+                    div
+                        md-button(type="submit", class="md-raised md-primary") Submit

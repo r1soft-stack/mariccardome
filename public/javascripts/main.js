@@ -8,7 +8,7 @@ angular.module('MariccardomeApp', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngA
         $scope.user = {
             name: "",
             email: "",
-            social: "123456789",
-            phone: "N/A"
+            social: "",
+            phone: ""
         };
     });
