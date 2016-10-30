@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    div(ng-controller="AdminController" layout="column", ng-cloak)
+        md-content(layout-padding, flex-gt-sm, class="margin-10")
+            form(name="userForm", class="md-whiteframe-3dp")
+                div(layout-gt-lg="row")
+                    md-input-container(class="md-block", flex-gt-sm)
+                        label Username
+                        input(required name="name", ng-model="user.name")
+                        div(class="hint", ng-if="showHints") Username or email
+                        div(ng-messages="userForm.name.$error")
+                            div(ng-message="required") Name is required.
+                            div(ng-message="md-maxlength") The name has to be less than 30 characters long.
+
+                    div(flex="5", hide-xs, hide-sm)
+
+                    md-input-container(class="md-block", flex-gt-sm)
+                        label Password
+                        input(type="password", name="password", required, ng-model="user.social")
+                        div(ng-messages="userForm.password.$error")
+                            div(ng-message="required") Password is required.
+
+                    div
+                        md-button(type="submit", class="md-raised md-primary") Submit
