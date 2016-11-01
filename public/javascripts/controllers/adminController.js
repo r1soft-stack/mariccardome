@@ -7,7 +7,7 @@
     'use strict';
 
     angular.module('MariccardomeApp')
-        .controller('AdminController', function ($scope) {
+        .controller('AdminController', ['$scope', '$mdToast', 'adminService', function ($scope, $mdToast, adminService) {
             $scope.showHints = true;
 
             $scope.user = {
@@ -16,5 +16,22 @@
                 social: "",
                 phone: ""
             };
-        });
+
+            /**
+             * Do login
+             * @param loginForm
+             */
+            $scope.login = function (loginForm) {
+                var res = adminService.login(loginForm);
+
+                if(res) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Login Toast!')
+                            .position('top right')
+                            .hideDelay(3000)
+                    );
+                }
+            }
+        }]);
 }());

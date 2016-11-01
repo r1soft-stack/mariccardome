@@ -24,6 +24,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: '$1$C2KITuS6$WQb6vrWH8vL2INBnY6ah21'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.disable('x-powered-by');
 
