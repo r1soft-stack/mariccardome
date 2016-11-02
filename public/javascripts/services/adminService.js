@@ -32,7 +32,9 @@
                 });
 
             /**
-             *
+             * Do login
+             * @param loginForm
+             * @returns {*}
              */
             function login(loginForm) {
                 return AdminApi.login(loginForm).$promise.then(function (results) {
@@ -52,10 +54,24 @@
             }
 
             /**
-             *
+             * Do logout
+             * @returns {*}
              */
             function logout() {
-
+                return AdminApi.logout().$promise.then(function (results) {
+                    var res = results.toJSON();
+                    if (res.a == 1) {
+                        loginStatus = false;
+                        return res
+                    } else {
+                        //TODO
+                        return res
+                    }
+                }, function (error) {
+                    // Check for errors
+                    loginStatus = false;
+                    return error.toJSON();
+                });
             }
 
             /**

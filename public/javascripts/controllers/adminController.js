@@ -17,7 +17,6 @@
              * @param loginForm
              */
             $scope.login = function (loginForm) {
-
                 var res = adminService.login(loginForm);
 
                 if (res) {
@@ -29,6 +28,22 @@
                     );
                 }
 
+            }
+
+            /**
+             * Do logout
+             */
+            $scope.logout = function () {
+                var res = adminService.logout();
+
+                if (res) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Logged out!')
+                            .position('top right')
+                            .hideDelay(3000)
+                    );
+                }
             }
 
         }]);

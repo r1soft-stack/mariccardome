@@ -16,7 +16,6 @@ router.post('/api/logout', function(req, res) {
 });
 
 router.use(function secure(req, res, next) {
-    console.log(req.session);
     if(!req.session.isLoggedIn){
         res.render('auth', { title: 'MaRiccardo.me' });
     }else{
@@ -26,7 +25,7 @@ router.use(function secure(req, res, next) {
 
 // define the home page route
 router.get('/', function(req, res) {
-    res.render('index', { title: 'MaRiccardo.me' });
+    res.render('admin/index', { title: 'MaRiccardo.me' });
 });
 
 // define the about route

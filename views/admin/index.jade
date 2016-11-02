@@ -1,0 +1,12 @@
+extends ../layout
+
+block toolbar
+    md-toolbar(controller="AdminController")
+        div(class="md-toolbar-tools")
+            h2
+                span Admin Dashboard
+            span(flex)
+            md-button(class="md-raised", aria-label="Learn More", ng-click="logout()") Logout
+block content
+    h1(class='julius-sans-one')= title
+    p(class='raleway') Admin Dashboard
