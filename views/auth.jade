@@ -17,9 +17,9 @@ block content
 
                     md-input-container(class="md-block", flex-gt-sm)
                         label Password
-                        input(type="password", name="password", required, ng-model="user.social")
+                        input(type="password", name="password", required, ng-model="user.password")
                         div(ng-messages="userForm.password.$error")
                             div(ng-message="required") Password is required.
 
                     div
-                        md-button(type="submit", class="md-raised md-primary", ng-click='login()') Submit
+                        md-button(type="submit", class="md-raised md-primary", ng-click='login(user)') Submit

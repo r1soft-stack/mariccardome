@@ -2,27 +2,53 @@
  * Created by riccardomasetti on 31/10/16.
  */
 
-(function() {
+(function () {
 
     'use strict';
 
     angular.module('MariccardomeApp')
-        .factory('adminService', function($cookies){
+        .factory('adminService', ['$cookies', '$resource', '$window', function ($cookies, $resource, $window) {
 
             var loginStatus = false;
             var credentials = {};
+            var verb = '//' + $window.location.host + '/admin/api';
+
+            var AdminApi = $resource(verb, {},
+                {
+                    getinfo: {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'}
+                    },
+                    login: {
+                        method: 'POST',
+                        url: verb + '/login',
+                        headers: {'Content-Type': 'application/json'}
+                    },
+                    logout: {
+                        method: 'POST',
+                        url: verb + '/logout',
+                        headers: {'Content-Type': 'application/json'}
+                    }
+                });
 
             /**
              *
              */
             function login(loginForm) {
-                loginStatus = true;
-                $cookies.put('logsession','1');
-                $cookies.put('userEmail',userForm.email);
-                $cookies.put('userName',userForm.name);
-                angular.extend(credentials,userForm);
-
-                return credentials;
+                return AdminApi.login(loginForm).$promise.then(function (results) {
+                    var res = results.toJSON();
+                    if (res.a == 1) {
+                        loginStatus = true;
+                        return res
+                    } else {
+                        //TODO
+                        return res
+                    }
+                }, function (error) {
+                    // Check for errors
+                    loginStatus = false;
+                    return error.toJSON();
+                });
             }
 
             /**
@@ -52,5 +78,5 @@
                 getLoginStatus: getLoginStatus,
                 getUserData: getUserData
             }
-        });
+        }]);
 }());

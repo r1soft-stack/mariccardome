@@ -10,28 +10,26 @@
         .controller('AdminController', ['$scope', '$mdToast', 'adminService', function ($scope, $mdToast, adminService) {
             $scope.showHints = true;
 
-            $scope.user = {
-                name: "",
-                email: "",
-                social: "",
-                phone: ""
-            };
+            $scope.user = {};
 
             /**
              * Do login
              * @param loginForm
              */
             $scope.login = function (loginForm) {
+
                 var res = adminService.login(loginForm);
 
-                if(res) {
+                if (res) {
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('Login Toast!')
+                            .textContent('Login success!')
                             .position('top right')
                             .hideDelay(3000)
                     );
                 }
+
             }
+
         }]);
 }());
