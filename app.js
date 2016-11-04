@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/admin/users');
 
 // main admin routing group
 var admin = require('./routes/admin/main');
