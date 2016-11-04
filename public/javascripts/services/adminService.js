@@ -7,7 +7,9 @@
     'use strict';
 
     angular.module('MariccardomeApp')
-        .factory('adminService', ['$cookies', '$resource', '$window', function ($cookies, $resource, $window) {
+        .factory('adminService', [
+            '$cookies', '$resource', '$window', '$rootScope',
+            function ($cookies, $resource, $window, $rootScope) {
 
             var loginStatus = false;
             var credentials = {};
@@ -39,12 +41,11 @@
             function login(loginForm) {
                 return AdminApi.login(loginForm).$promise.then(function (results) {
                     var res = results.toJSON();
-                    if (res.a == 1) {
+                    if (res.redirect) {
                         loginStatus = true;
-                        return res
+                        $rootScope.$broadcast('login', res);
                     } else {
-                        //TODO
-                        return res
+                        $rootScope.$broadcast('login', {redirect:'/'});
                     }
                 }, function (error) {
                     // Check for errors
@@ -60,12 +61,11 @@
             function logout() {
                 return AdminApi.logout().$promise.then(function (results) {
                     var res = results.toJSON();
-                    if (res.a == 1) {
+                    if (res.redirect) {
                         loginStatus = false;
-                        return res
+                        $rootScope.$broadcast('logout', res);
                     } else {
-                        //TODO
-                        return res
+                        $rootScope.$broadcast('login', {redirect:'/'});
                     }
                 }, function (error) {
                     // Check for errors
