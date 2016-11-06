@@ -45,7 +45,7 @@
                         loginStatus = true;
                         $rootScope.$broadcast('login', res);
                     } else {
-                        $rootScope.$broadcast('login', {redirect:'/'});
+                        $rootScope.$broadcast('login', res);
                     }
                 }, function (error) {
                     // Check for errors

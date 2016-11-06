@@ -6,12 +6,11 @@ block content
             form(name="userForm", class="md-whiteframe-3dp")
                 div(layout-gt-lg="row")
                     md-input-container(class="md-block", flex-gt-sm)
-                        label Username
-                        input(required name="name", ng-model="user.name")
-                        div(class="hint", ng-if="showHints") Username or email
+                        label Email
+                        input(required name="email", ng-model="user.email")
+                        div(class="hint", ng-if="showHints") Email
                         div(ng-messages="userForm.name.$error")
-                            div(ng-message="required") Name is required.
-                            div(ng-message="md-maxlength") The name has to be less than 30 characters long.
+                            div(ng-message="required") Email is required.
 
                     div(flex="5", hide-xs, hide-sm)
 

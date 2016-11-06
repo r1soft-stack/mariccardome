@@ -23,7 +23,7 @@
                         adminService.login(loginForm);
 
                         $scope.$on('login', function (context, res) {
-                            if (res) {
+                            if (res.redirect) {
                                 $mdToast.show(
                                     $mdToast.simple()
                                         .textContent('Login success!')
@@ -34,6 +34,13 @@
                                 if (res.redirect) {
                                     $window.location = res.redirect;
                                 }
+                            }else {
+                                $mdToast.show(
+                                    $mdToast.simple()
+                                        .textContent(res.err)
+                                        .position('top right')
+                                        .hideDelay(3000)
+                                );
                             }
                         })
 

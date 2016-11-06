@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 
-
+//TODO add a middleware for checking the user role and login status
 
 router.post('/insert', function(req, res, next){
 
