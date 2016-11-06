@@ -1,0 +1,17 @@
+extends ../layout
+
+block toolbar
+    md-toolbar(ng-controller="UserController")
+        div(class="md-toolbar-tools")
+            h2
+                span Admin Dashboard - Users
+            span(flex)
+            md-button(class="md-raised", aria-label="Learn More", ng-click="logout()") Logout
+block content
+    md-list
+        md-list-item(ng-repeat="person in people", ng-click="goToPerson(person.name, $event)", class="noright")
+            img(alt="{{ person.name }}", ng-src="{{ person.img }}", class="md-avatar")
+            p {{ person.name }}
+            md-checkbox(class="md-secondary", ng-model="person.selected")
+            md-icon(md-svg-icon="communication:email",  ng-click="doSecondaryAction($event)", aria-label="Send Email", class="md-secondary md-hue-3")
+            md-icon(class="md-secondary", ng-click="doSecondaryAction($event)", aria-label="Chat", md-svg-icon="communication:message")

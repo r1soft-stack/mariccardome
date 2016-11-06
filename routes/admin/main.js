@@ -4,7 +4,6 @@ var session = require('express-session');
 var bcrypt = require('bcrypt');
 var MongoClient = require('mongodb').MongoClient;
 
-
 /**
  * Bcrypt return true or false
  */
@@ -16,7 +15,6 @@ router.post('/api/login', function (req, res) {
         return res.send(JSON.stringify({err:'Incomplete form'}, null, 3));
     }
 
-    //TODO load the password hash from mongo
     MongoClient.connect('mongodb://localhost:27017/mariccardome', function (err, db) {
 
         if (err) {
@@ -61,11 +59,6 @@ router.use(function secure(req, res, next) {
 // define the home page route
 router.get('/', function (req, res) {
     res.render('admin/index', {title: 'MaRiccardo.me'});
-});
-
-// define the about route
-router.get('/users', function (req, res) {
-    res.send('About users');
 });
 
 module.exports = router;

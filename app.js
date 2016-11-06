@@ -7,10 +7,10 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./routes/index');
-var users = require('./routes/admin/users');
 
 // main admin routing group
 var admin = require('./routes/admin/main');
+var users = require('./routes/admin/users');
 
 var app = express();
 
@@ -32,10 +32,10 @@ app.disable('x-powered-by');
 
 
 app.use('/', routes);
-app.use('/users', users);
 
-// administration main routing
+// administration routing
 app.use('/admin', admin);
+app.use('/admin/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
