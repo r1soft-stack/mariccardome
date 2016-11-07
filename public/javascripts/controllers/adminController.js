@@ -12,7 +12,6 @@
                 '$scope', '$mdToast', 'adminService', '$window',
                 function ($scope, $mdToast, adminService, $window) {
                     $scope.showHints = true;
-
                     $scope.user = {};
 
                     /**
@@ -34,7 +33,7 @@
                                 if (res.redirect) {
                                     $window.location = res.redirect;
                                 }
-                            }else {
+                            } else {
                                 $mdToast.show(
                                     $mdToast.simple()
                                         .textContent(res.err)
@@ -69,5 +68,5 @@
                         });
                     }
 
-                }]);
+                }])
 }());

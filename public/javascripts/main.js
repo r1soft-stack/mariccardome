@@ -13,11 +13,14 @@
     MariccardomeApp.config(['$routeProvider',
         function ($routeProvider) {
             $routeProvider
-                .when('/admin/users-manager', {
-                    template: '<md-content>Users Manager</md-content>'
+                .when('/users', {
+                    templateUrl: init_config.view_path + '/admin/users.html'
+                })
+                .when('/dashboard', {
+                    templateUrl: init_config.view_path + '/admin/dashboard.html'
                 })
                 .otherwise({
-                    redirectTo: '/annotator'
+                    redirectTo: '/dashboard'
                 });
         }]);
 
