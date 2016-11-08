@@ -9,8 +9,10 @@
     angular.module('MariccardomeApp')
         .controller('UserController',
             [
-                '$scope', '$mdToast', '$window',
-                function ($scope, $mdToast, $window) {
+                '$scope', '$mdToast', '$window', '$rootScope',
+                function ($scope, $mdToast, $window, $rootScope) {
+
+                    $rootScope.$broadcast('Section', 'Users');
 
                     $scope.people = [
                         { name: 'Janet Perkins', img: 'img/100-0.jpeg', newMessage: true },

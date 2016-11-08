@@ -14,9 +14,11 @@
         function ($routeProvider) {
             $routeProvider
                 .when('/users', {
+                    controller: 'UserController',
                     templateUrl: init_config.view_path + '/admin/users.html'
                 })
                 .when('/dashboard', {
+                    controller: 'DashboardController',
                     templateUrl: init_config.view_path + '/admin/dashboard.html'
                 })
                 .otherwise({

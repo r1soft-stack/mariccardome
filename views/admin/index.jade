@@ -4,8 +4,13 @@ block toolbar
     md-toolbar(ng-controller="AdminController")
         div(class="md-toolbar-tools")
             h2
-                span Admin Dashboard - {{section}}
+                span Admin - {{section}}
             span(flex)
             md-button(class="md-raised", aria-label="Learn More", ng-click="logout()") Logout
+
+    md-toolbar(ng-controller="AdminController", md-whiteframe="2", md-colors="{'background-color':'yellow-50'}")
+        div(class="md-toolbar-tools")
+            h2
+                span MENU - {{section}}
 block content
     div(id="md-content", ng-view)

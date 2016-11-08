@@ -14,6 +14,10 @@
                     $scope.showHints = true;
                     $scope.user = {};
 
+                    $scope.$on('Section',function (context, data) {
+                        $scope.section = data;
+                    });
+
                     /**
                      * Do login
                      * @param loginForm
