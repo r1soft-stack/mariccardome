@@ -13,7 +13,6 @@
                 function ($scope, $mdToast, adminService, $window) {
                     $scope.showHints = true;
                     $scope.user = {};
-                    $scope.currentNavItem = 'dashboard';
 
                     $scope.$on('Section',function (context, data) {
                         $scope.section = data;

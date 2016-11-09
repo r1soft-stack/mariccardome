@@ -12,5 +12,6 @@
                 '$scope', '$mdToast', '$window', '$rootScope',
                 function ($scope, $mdToast, $window, $rootScope) {
                     $rootScope.$broadcast('Section', 'Dashboard');
+                    $rootScope.$broadcast('Navbar', 'dashboard');
                 }]);
 }());

@@ -13,6 +13,7 @@
                 function ($scope, $mdToast, $window, $rootScope) {
 
                     $rootScope.$broadcast('Section', 'Users');
+                    $rootScope.$broadcast('Navbar', 'users');
 
                     $scope.people = [
                         { name: 'Janet Perkins', img: 'img/100-0.jpeg', newMessage: true },
