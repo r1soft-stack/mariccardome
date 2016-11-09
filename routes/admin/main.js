@@ -58,7 +58,7 @@ router.use(function secure(req, res, next) {
 
 // define the home page route
 router.get('/', function (req, res) {
-    res.render('admin/index', {title: 'MaRiccardo.me'});
+    res.render('admin/index', {title: 'MaRiccardo.me', section:'admin'});
 });
 
 module.exports = router;

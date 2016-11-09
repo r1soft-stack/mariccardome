@@ -32,5 +32,10 @@ html
     script(src="/javascripts/services/adminService.js")
 
   body(ng-app="MariccardomeApp", ng-clock)
-    block toolbar
-    block content
+    -if (!section)
+      block toolbar
+      block content
+    -else
+      md-wrapper(ng-controller="AdminController" class="toolbar-wrapper")
+        block toolbar-admin
+        block content-admin

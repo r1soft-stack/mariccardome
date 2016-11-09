@@ -1,16 +1,15 @@
 extends ../layout
 
-block toolbar
-    md-toolbar(ng-controller="AdminController")
+block toolbar-admin
+    md-toolbar
         div(class="md-toolbar-tools")
             h2
                 span Admin - {{section}}
             span(flex)
             md-button(class="md-raised", aria-label="Learn More", ng-click="logout()") Logout
 
-    md-toolbar(ng-controller="AdminController", md-whiteframe="2", md-colors="{'background-color':'yellow-50'}")
-        div(class="md-toolbar-tools")
-            h2
-                span MENU - {{section}}
-block content
-    div(id="md-content", ng-view)
+    md-nav-bar(md-selected-nav-item="currentNavItem", nav-bar-aria-label="navigation links")
+        md-nav-item(md-nav-href="#dashboard" name="dashboard") Dashboard
+        md-nav-item(md-nav-href="#users" name="users") Users
+block content-admin
+    div(id="md-content", class="md-padding", ng-view)
