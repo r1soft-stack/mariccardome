@@ -13,13 +13,17 @@
     MariccardomeApp.config(['$routeProvider', '$mdIconProvider',
         function ($routeProvider, $mdIconProvider) {
             $routeProvider
-                .when('/users', {
-                    controller: 'UserController',
-                    templateUrl: init_config.view_path + '/admin/users.html'
-                })
                 .when('/dashboard', {
                     controller: 'DashboardController',
                     templateUrl: init_config.view_path + '/admin/dashboard.html'
+                })
+                .when('/pages', {
+                    controller: 'PagesController',
+                    templateUrl: init_config.view_path + '/admin/pages.html'
+                })
+                .when('/users', {
+                    controller: 'UserController',
+                    templateUrl: init_config.view_path + '/admin/users.html'
                 })
                 .otherwise({
                     redirectTo: '/dashboard'

@@ -10,6 +10,7 @@ block toolbar-admin
     mr-controller(ng-controller="NavbarAdminController")
         md-nav-bar(md-selected-nav-item="currentNavItem", nav-bar-aria-label="navigation links")
             md-nav-item(md-nav-href="#dashboard", name="dashboard") Dashboard
+            md-nav-item(md-nav-href="#pages", name="pages") Pages
             md-nav-item(md-nav-href="#users", name="users") Users
 block content-admin
     div(id="md-content", class="md-padding", ng-view)

@@ -1,7 +1,10 @@
+/**
+ * Created by riccardomasetti on 10/11/16.
+ */
+
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
-var bcrypt = require('bcrypt');
 var MongoClient = require('mongodb').MongoClient;
 
 
@@ -24,9 +27,11 @@ router.post('/insert', function (req, res, next) {
 });
 
 /**
- * GET users list
+ * GET pages list
  */
 router.get('/', function (req, res, next) {
+
+    res.setHeader('Content-Type', 'application/json');
 
     MongoClient.connect('mongodb://localhost:27017/mariccardome', function (err, db) {
 
@@ -34,7 +39,7 @@ router.get('/', function (req, res, next) {
             throw err;
         }
 
-        db.collection('users').find().toArray(function (err, result) {
+        db.collection('pages').find().toArray(function (err, result) {
             if (err) {
                 throw err;
             }

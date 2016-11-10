@@ -16,9 +16,9 @@
                     $rootScope.$broadcast('Navbar', 'users');
 
                     $scope.people = [
-                        { name: 'Janet Perkins', img: 'img/100-0.jpeg', newMessage: true },
-                        { name: 'Mary Johnson', img: 'img/100-1.jpeg', newMessage: false },
-                        { name: 'Peter Carlsson', img: 'img/100-2.jpeg', newMessage: false }
+                        { name: 'Janet Perkins', img: 'https://placeholdit.imgix.net/~text?txtsize=20&txt=100%C3%97100&w=100&h=100', newMessage: true },
+                        { name: 'Mary Johnson', img: 'https://placeholdit.imgix.net/~text?txtsize=20&txt=100%C3%97100&w=100&h=100', newMessage: false },
+                        { name: 'Peter Carlsson', img: 'https://placeholdit.imgix.net/~text?txtsize=20&txt=100%C3%97100&w=100&h=100', newMessage: false }
                     ];
 
                     $scope.goToPerson = function(person, event) {
