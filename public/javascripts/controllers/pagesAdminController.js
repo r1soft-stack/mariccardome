@@ -15,7 +15,11 @@
                     $rootScope.$broadcast('Section', 'Pages');
                     $rootScope.$broadcast('Navbar', 'pages');
 
-                    $scope.pageCollection = pagesService.getList(1);
+                    pagesService.getList(1);
+
+                    $scope.$on('pages',function(context, data){
+                        $scope.pageCollection = data;
+                    });
 
                 }]);
 }());

@@ -20,7 +20,8 @@
                 var AdminApi = $resource(verb, {},
                     {
                         getList: {
-                            method: 'POST',
+                            method: 'GET',
+                            url: verb + '/get',
                             headers: {'Content-Type': 'application/json'}
                         },
                         insert: {
@@ -43,7 +44,7 @@
                 function getList(pagination) {
                     return AdminApi.getList(pagination).$promise.then(function (results) {
                         var res = results.toJSON();
-                        $rootScope.$broadcast('pages', res);
+                        $rootScope.$broadcast('pages', res.pages);
                     }, function (error) {
                         // Check for errors
                         return error.toJSON();

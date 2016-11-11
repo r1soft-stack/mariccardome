@@ -29,9 +29,7 @@ router.post('/insert', function (req, res, next) {
 /**
  * GET pages list
  */
-router.get('/', function (req, res, next) {
-
-    res.setHeader('Content-Type', 'application/json');
+router.get('/get', function (req, res, next) {
 
     MongoClient.connect('mongodb://localhost:27017/mariccardome', function (err, db) {
 
@@ -44,7 +42,8 @@ router.get('/', function (req, res, next) {
                 throw err;
             }
 
-            res.send({title: 'MaRiccardo.me', users: result});
+            res.setHeader('Content-Type', 'application/json');
+            res.send({title: 'MaRiccardo.me', pages: result});
         });
     });
 });

@@ -4,5 +4,5 @@
 
 var init_config = {
     view_path:'/javascripts/views',
-    admin_api_verb: '/admin/api'
+    admin_api_verb: '/admin/pages'
 }
