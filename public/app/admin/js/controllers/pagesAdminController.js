@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by riccardomasetti on 31/10/16.
  */
 
@@ -15,11 +15,31 @@
                     $rootScope.$broadcast('Section', 'Pages');
                     $rootScope.$broadcast('Navbar', 'pages');
 
-                    pagesService.getList(1);
+                    $scope.bulk = {};
 
-                    $scope.$on('pages',function(context, data){
+                    //get pages with pagination and limit per page. Default is page 1
+                    pagesService.getList({page:1 , per_page:30});
+
+                    $scope.$on('pages', function(context, data){
                         $scope.pageCollection = data;
                     });
+
+                    /**
+                     *
+                     * @param page_data
+                     */
+                    $scope.edit = function (page_data) {
+
+                        //pagesService.edit(page_data);
+                    }
+
+                    /**
+                     *
+                     * @param page_data
+                     */
+                    $scope.delete = function (page_data) {
+
+                    }
 
                 }]);
 }());

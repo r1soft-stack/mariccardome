@@ -10,8 +10,8 @@
     var MariccardomeApp = angular.module('MariccardomeApp',
         ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngAria', 'ngCookies', 'ngRoute', 'ngResource', 'material.svgAssetsCache']);
 
-    MariccardomeApp.config(['$routeProvider', '$mdIconProvider',
-        function ($routeProvider, $mdIconProvider) {
+    MariccardomeApp.config(['$routeProvider', '$mdIconProvider', '$locationProvider',
+        function ($routeProvider, $mdIconProvider, $locationProvider) {
             $routeProvider
                 .when('/dashboard', {
                     controller: 'DashboardController',
@@ -33,6 +33,7 @@
                 .iconSet('social', 'img/icons/sets/social-icons.svg', 24)
                 .iconSet('device', 'img/icons/sets/device-icons.svg', 24)
                 .iconSet('communication', 'img/icons/sets/communication-icons.svg', 24)
+                .iconSet('alert', 'img/icons/sets/alert-icons.svg', 24)
                 .defaultIconSet('img/icons/sets/core-icons.svg', 24);
         }]);
 

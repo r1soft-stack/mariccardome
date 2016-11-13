@@ -50,15 +50,15 @@ router.post('/api/logout', function (req, res) {
 
 router.use(function secure(req, res, next) {
     if (!req.session.isLoggedIn) {
-        res.render('auth', {title: 'MaRiccardo.me'});
+        res.render('auth', {title: 'Bacco CMS - Login'});
     } else {
         next();
     }
 });
 
-// define the home page route
 router.get('/', function (req, res) {
-    res.render('admin/index', {title: 'MaRiccardo.me', section:'admin'});
+    res.render('admin/index', {title: 'Bacco CMS - Administration', section:'admin'});
 });
+
 
 module.exports = router;
