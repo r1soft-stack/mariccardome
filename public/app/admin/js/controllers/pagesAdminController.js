@@ -17,7 +17,7 @@
 
                     pagesService.getList(1);
 
-                    $scope.$on('pages', function (context, data) {
+                    $scope.$on('pages',function(context, data){
                         $scope.pageCollection = data;
                     });
 

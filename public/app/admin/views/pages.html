@@ -1,6 +1,6 @@
 <md-list>
     <md-list-item ng-repeat="page in pageCollection" class="noright">
-        <img alt="{{ page.title }}" ng-src="{{ page.preview_image }}" class="md-avatar" />
+        <img alt="{{ page.title }}" ng-src="{{ page.img }}" class="md-avatar" />
         <p>{{ page.name }}</p>
         <md-checkbox class="md-secondary" ng-model="pag.selected"></md-checkbox>
         <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
