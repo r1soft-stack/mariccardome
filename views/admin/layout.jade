@@ -28,7 +28,15 @@ html
     script(src='/app/main.js')
 
     <!-- Main Application  -->
+    script(src="/app/admin/js/controllers/adminLoginController.js")
+    script(src="/app/admin/js/controllers/navbarAdminController.js")
+    script(src="/app/admin/js/controllers/dashboardAdminController.js")
+    script(src="/app/admin/js/controllers/userAdminController.js")
+    script(src="/app/admin/js/controllers/pagesAdminController.js")
+    script(src="/app/admin/js/services/adminLoginService.js")
+    script(src="/app/admin/js/services/adminPagesService.js")
 
   body(ng-app="MariccardomeApp", ng-clock)
-      block toolbar
-      block content
+      md-wrapper(ng-controller="AdminController" class="toolbar-wrapper")
+        block toolbar-admin
+        block content-admin

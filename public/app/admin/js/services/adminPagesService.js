@@ -15,7 +15,7 @@
             '$cookies', '$resource', '$window', '$rootScope',
             function ($cookies, $resource, $window, $rootScope) {
 
-                var verb = '//' + $window.location.host + init_config.admin_api_verb;
+                var verb = '//' + $window.location.host + bacco.admin_api.pages;
 
                 var AdminApi = $resource(verb, {},
                     {

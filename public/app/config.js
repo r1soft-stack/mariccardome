@@ -3,12 +3,6 @@
  * This is shared by frontend and admin both
  */
 
-var init_config = {
-    view_path: '/javascripts/views',
-    admin_view_path: '/javascripts/views',
-    admin_api_verb: '/admin/pages'
-}
-
 var bacco = {
     admin_path: '/app/admin',
     admin_view_path: '/app/admin/views',

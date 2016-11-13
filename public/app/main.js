@@ -15,15 +15,15 @@
             $routeProvider
                 .when('/dashboard', {
                     controller: 'DashboardController',
-                    templateUrl: init_config.view_path + '/admin/dashboard.html'
+                    templateUrl: bacco.admin_view_path + '/dashboard.html'
                 })
                 .when('/pages', {
                     controller: 'PagesController',
-                    templateUrl: init_config.view_path + '/admin/pages.html'
+                    templateUrl: bacco.admin_view_path + '/pages.html'
                 })
                 .when('/users', {
                     controller: 'UserController',
-                    templateUrl: init_config.view_path + '/admin/users.html'
+                    templateUrl: bacco.admin_view_path + '/users.html'
                 })
                 .otherwise({
                     redirectTo: '/dashboard'
