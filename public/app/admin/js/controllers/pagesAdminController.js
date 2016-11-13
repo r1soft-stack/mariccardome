@@ -9,7 +9,7 @@
     angular.module('MariccardomeApp')
         .component('pageEdit',{
                 templateUrl: bacco.admin_view_path + '/pageEdit.html',
-                controller: ['$routeParams', PageEditController]
+                controller: PageEditController
             }
         )
         .controller('PagesController',
@@ -55,8 +55,29 @@
      * Edit controller for page
      * @constructor
      */
-    function PageEditController($scope, $element, $attrs, $routeParams) {
-        this.id = $scope.id;
+    function PageEditController($scope, $element, $attrs, $routeParams, pagesService) {
+        var ctrl = this;
+        ctrl.id = $routeParams.id;
+        ctrl.tinymceModel = 'Initial content';
+
+        pagesService.getPage({pageid:ctrl.id});
+        $scope.$on('pages:page', function (context, data) {
+            var page = data.length > 0 ? data[0] : false;
+            ctrl.tinymceModel = page.content;
+        });
+
+        ctrl.getContent = function() {
+            console.log('Editor content:', ctrl.tinymceModel);
+        };
+
+        ctrl.setContent = function() {
+            ctrl.tinymceModel = 'Time: ' + (new Date());
+        };
+
+        ctrl.tinymceOptions = {
+            plugins: 'link image code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        };
     }
 
 }());

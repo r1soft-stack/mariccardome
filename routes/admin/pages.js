@@ -6,6 +6,7 @@ var express = require('express');
 var router = express.Router();
 var session = require('express-session');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 
 
 router.use(function secure(req, res, next) {
@@ -38,6 +39,30 @@ router.get('/get', function (req, res, next) {
         }
 
         db.collection('pages').find().toArray(function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            res.setHeader('Content-Type', 'application/json');
+            res.send({title: 'MaRiccardo.me', pages: result});
+        });
+    });
+});
+
+/**
+ * GET single page data
+ */
+router.post('/get-page', function (req, res, next) {
+
+    MongoClient.connect('mongodb://localhost:27017/mariccardome', function (err, db) {
+
+        if (err) {
+            throw err;
+        }
+
+        var _id = req.body.pageid;
+
+        db.collection('pages').find({"_id": new ObjectId(_id)}).toArray(function (err, result) {
             if (err) {
                 throw err;
             }

@@ -19,6 +19,11 @@
 
                 var AdminApi = $resource(verb, {},
                     {
+                        getPage: {
+                            method: 'POST',
+                            url: verb + '/get-page',
+                            headers: {'Content-Type': 'application/json'}
+                        },
                         getList: {
                             method: 'GET',
                             url: verb + '/get',
@@ -51,8 +56,24 @@
                     });
                 }
 
+                /**
+                 * Do login
+                 * @param loginForm
+                 * @returns {*}
+                 */
+                function getPage(search) {
+                    return AdminApi.getPage(search).$promise.then(function (results) {
+                        var res = results.toJSON();
+                        $rootScope.$broadcast('pages:page', res.pages);
+                    }, function (error) {
+                        // Check for errors
+                        return error.toJSON();
+                    });
+                }
+
                 return {
-                    getList: getList
+                    getList: getList,
+                    getPage: getPage
                 }
             }]);
 }());

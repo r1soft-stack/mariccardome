@@ -8,7 +8,7 @@
     'use strict';
 
     var MariccardomeApp = angular.module('MariccardomeApp',
-        ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngAria', 'ngCookies', 'ngRoute', 'ngResource', 'material.svgAssetsCache']);
+        ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngAria', 'ngCookies', 'ngRoute', 'ngResource', 'material.svgAssetsCache', 'ui.tinymce']);
 
     MariccardomeApp.config(['$routeProvider', '$mdIconProvider',
         function ($routeProvider, $mdIconProvider) {
