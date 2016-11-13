@@ -21,6 +21,9 @@
                     controller: 'PagesController',
                     templateUrl: bacco.admin_view_path + '/pages.html'
                 })
+                .when('/pages/edit/:id', {
+                    template: '<page-edit></page-edit>'
+                })
                 .when('/users', {
                     controller: 'UserController',
                     templateUrl: bacco.admin_view_path + '/users.html'

@@ -10,8 +10,8 @@
     var MariccardomeApp = angular.module('MariccardomeApp',
         ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngAria', 'ngCookies', 'ngRoute', 'ngResource', 'material.svgAssetsCache']);
 
-    MariccardomeApp.config(['$routeProvider', '$mdIconProvider', '$locationProvider',
-        function ($routeProvider, $mdIconProvider, $locationProvider) {
+    MariccardomeApp.config(['$routeProvider', '$mdIconProvider',
+        function ($routeProvider, $mdIconProvider) {
             $routeProvider
                 .when('/dashboard', {
                     controller: 'DashboardController',

@@ -1,0 +1,26 @@
+{
+  "name": "bacco cms",
+  "homepage": "https://github.com/r1soft-stack/mariccardome",
+  "authors": [
+    "mariccardo <riccardo.masetti.work@gmail.com>"
+  ],
+  "description": "Node js + angular framework cms",
+  "main": "",
+  "keywords": [
+    "angular",
+    "node",
+    "tinymce"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-ui-tinymce": "^0.0.17"
+  }
+}

@@ -3,7 +3,7 @@
         <img alt="{{ page.title }}" ng-src="{{ page.preview_image }}" class="md-avatar" />
         <p>{{ page.name }}</p>
         <md-checkbox class="md-secondary" ng-model="bulk.selected"></md-checkbox>
-        <i ng-click="edit($event)" aria-label="Edit page" class="md-secondary md-hue-3 material-icons" >create</i>
+        <i ng-click="edit($event,page)" aria-label="Edit page" class="md-secondary md-hue-3 material-icons" >create</i>
         <i class="md-secondary md-hue-3 material-icons" ng-click="delete($event)" aria-label="Chat">delete_sweep</i>
     </md-list-item>
 </md-list>
