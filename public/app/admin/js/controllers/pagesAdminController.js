@@ -60,12 +60,6 @@
         ctrl.id = $routeParams.id;
         ctrl.tinymceModel = 'Initial content';
 
-        pagesService.getPage({pageid:ctrl.id});
-        $scope.$on('pages:page', function (context, data) {
-            var page = data.length > 0 ? data[0] : false;
-            ctrl.tinymceModel = page.content;
-        });
-
         ctrl.getContent = function() {
             console.log('Editor content:', ctrl.tinymceModel);
         };
@@ -75,9 +69,20 @@
         };
 
         ctrl.tinymceOptions = {
-            plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            plugins: 'link image code template fullscreen',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code template fullscreen',
+            skin : 'bacco'
         };
+
+        //get page content
+        pagesService.getPage({pageid:ctrl.id});
+
+        //listen on page service getPag
+        $scope.$on('pages:page', function (context, data) {
+            var page = data.length > 0 ? data[0] : false;
+            ctrl.tinymceModel = page.content;
+            ctrl.page = page;
+        });
     }
 
 }());
