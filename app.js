@@ -21,11 +21,11 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('env', 'development');
+app.set('env', 'production');
 app.set('json spaces', 40);
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -75,6 +75,6 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
-app.listen(8080, function () {
+app.listen(80, function () {
     console.log('Example app listening on port 80!');
 });
