@@ -1,30 +1,30 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
-.margin-10{
+.margin-10 {
     margin: 10%;
 }
 
 .roboto {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .julius-sans-one {
-  font-family: 'Julius Sans One', sans-serif;
+    font-family: 'Julius Sans One', sans-serif;
 }
 
 .open-sans {
-  font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .raleway {
-  font-family: 'Raleway', sans-serif; 
+    font-family: 'Raleway', sans-serif;
 }
 
 .error_image {
@@ -37,10 +37,11 @@ a {
     background-size: 300px;
 }
 
-
 .inputdemoErrorsAdvanced {
     /* NOTE: Check the demo's HTML to see some additional RTL support CSS */
-    /* Setup animations similar to the ng-messages */ }
+    /* Setup animations similar to the ng-messages */
+}
+
 .inputdemoErrorsAdvanced .hint {
     /* Position the hint */
     position: absolute;
@@ -52,17 +53,66 @@ a {
     line-height: 14px;
     transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
     /* Set our own color */
-    color: grey; }
+    color: grey;
+}
+
 .inputdemoErrorsAdvanced .hint.ng-hide,
 .inputdemoErrorsAdvanced .hint.ng-enter,
 .inputdemoErrorsAdvanced .hint.ng-leave.ng-leave-active {
     bottom: 26px;
-    opacity: 0; }
+    opacity: 0;
+}
+
 .inputdemoErrorsAdvanced .hint.ng-leave,
 .inputdemoErrorsAdvanced .hint.ng-enter.ng-enter-active {
     bottom: 7px;
-    opacity: 1; }
+    opacity: 1;
+}
 
+/*bottom sheet*/
+.bottomSheetPageEdit .md-inline-list-icon-label {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: -10px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.bottomSheetPageEdit .md-grid-item-content {
+    height: 90px;
+    padding-top: 10px;
+}
+
+.bottomSheetPageEdit .md-grid-item-content md-icon {
+    height: 48px;
+    width: 48px;
+}
+
+.bottomSheetPageEdit .md-grid-text {
+    padding-bottom: 5px;
+}
+
+.bottomSheetPageEdit md-list-item, .bottomSheetPageEdit md-list-item .md-list-item-inner {
+    min-height: 48px;
+}
+
+.bottomSheetPageEdit h2 {
+    line-height: 36px;
+    padding-top: 10px;
+}
+
+.bottomSheetPageEdit .md-subheader .md-subheader-inner {
+    padding: 0;
+}
+
+.bottomSheetPageEdit md-toast .md-toast-content {
+    background-color: #B14141;
+}
+
+.bottomSheetPageEdit md-toast > * {
+    font-weight: bolder;
+}
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

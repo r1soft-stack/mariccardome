@@ -7,10 +7,12 @@ var router = express.Router();
 var session = require('express-session');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
+var app = express();
 
+var env = app.get('env');
 
 router.use(function secure(req, res, next) {
-    if (!req.session.isLoggedIn) {
+    if (!req.session.isLoggedIn && env != 'development') {
         res.render('auth', {title: 'MaRiccardo.me'});
     } else {
         next();

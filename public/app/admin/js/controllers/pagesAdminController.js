@@ -7,11 +7,12 @@
     'use strict';
 
     angular.module('MariccardomeApp')
-        .component('pageEdit',{
+        .component('pageEdit', {
                 templateUrl: bacco.admin_view_path + '/pageEdit.html',
                 controller: PageEditController
             }
         )
+        .controller('GridBottomSheetCtrl', GridBottomSheetCtrl)
         .controller('PagesController',
             [
                 '$scope', '$rootScope', 'pagesService', '$location',
@@ -55,34 +56,64 @@
      * Edit controller for page
      * @constructor
      */
-    function PageEditController($scope, $element, $attrs, $routeParams, pagesService) {
-        var ctrl = this;
-        ctrl.id = $routeParams.id;
-        ctrl.tinymceModel = 'Initial content';
+    function PageEditController($scope, $element, $attrs, $routeParams, pagesService, $mdBottomSheet, $mdToast) {
+        $scope.id = $routeParams.id;
+        $scope.tinymceModel = 'Initial content';
 
-        ctrl.getContent = function() {
-            console.log('Editor content:', ctrl.tinymceModel);
+        $scope.getContent = function () {
+            console.log('Editor content:', $scope.tinymceModel);
         };
 
-        ctrl.setContent = function() {
-            ctrl.tinymceModel = 'Time: ' + (new Date());
+        $scope.setContent = function () {
+            $scope.tinymceModel = 'Time: ' + (new Date());
         };
 
-        ctrl.tinymceOptions = {
+        $scope.tinymceOptions = {
             plugins: 'link image code template fullscreen',
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code template fullscreen',
-            skin : 'bacco'
+            skin: 'bacco'
         };
 
+        $scope.showMenu = function () {
+            $mdBottomSheet.show({
+                templateUrl: bacco.admin_view_path + '/pageOptions.html',
+                controller: 'GridBottomSheetCtrl',
+                clickOutsideToClose: false
+            }).then(function (clickedItem) {
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(clickedItem['name'] + ' clicked!')
+                        .position('top right')
+                        .hideDelay(1500)
+                );
+            });
+        }
+
         //get page content
-        pagesService.getPage({pageid:ctrl.id});
+        pagesService.getPage({pageid: $scope.id});
 
         //listen on page service getPag
         $scope.$on('pages:page', function (context, data) {
             var page = data.length > 0 ? data[0] : false;
-            ctrl.tinymceModel = page.content;
-            ctrl.page = page;
+            $scope.tinymceModel = page.content;
+            $scope.page = page;
         });
+    }
+
+    function GridBottomSheetCtrl($scope, $mdBottomSheet) {
+        $scope.items = [
+            { name: 'Hangout', icon: 'hangout' },
+            { name: 'Mail', icon: 'mail' },
+            { name: 'Message', icon: 'message' },
+            { name: 'Copy', icon: 'copy2' },
+            { name: 'Facebook', icon: 'facebook' },
+            { name: 'Twitter', icon: 'twitter' },
+        ];
+
+        $scope.listItemClick = function($index) {
+            var clickedItem = $scope.items[$index];
+            $mdBottomSheet.hide(clickedItem);
+        };
     }
 
 }());

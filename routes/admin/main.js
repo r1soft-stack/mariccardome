@@ -3,6 +3,9 @@ var router = express.Router();
 var session = require('express-session');
 var bcrypt = require('bcrypt');
 var MongoClient = require('mongodb').MongoClient;
+var app = express();
+
+var env = app.get('env');
 
 /**
  * Bcrypt return true or false
@@ -49,7 +52,7 @@ router.post('/api/logout', function (req, res) {
 });
 
 router.use(function secure(req, res, next) {
-    if (!req.session.isLoggedIn) {
+    if (!req.session.isLoggedIn &&  env != 'development') {
         res.render('auth', {title: 'Bacco CMS - Login'});
     } else {
         next();
