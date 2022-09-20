@@ -1,0 +1,9 @@
+---
+domain: "wordpress"
+www_docroot: "/var/www/"
+wordpress_version: "latest"
+php_version: "7.4"
+user_www: "www-data"
+user_personal: "your_name"
+nginx_global: "/etc/nginx/global"
+domain_name: "yourname.com"

@@ -1,0 +1,264 @@
+---
+- hosts: "{{ host_to_config|default('all') }}"
+  gather_facts: true
+  become: True
+
+  handlers:
+    - name: restart mysql
+      service: name=mysql state=restarted
+    - name: reload nginx
+      command: "{{ item }}"
+      ignore_errors: yes
+      with_items:
+        - 'nginx'
+        - 'nginx -s reload'
+    - name: test wpcli
+      shell: wp
+      become_user: "{{ user_www }}"
+    - name: update cahce
+      apt:
+        update_cache: yes
+
+  tasks:
+    - debug:
+        var: inventory_hostname
+
+    - name: include vars
+      include_vars: vars/secrets.yml
+
+    - name: Download gpg
+      get_url:
+        url: https://packages.sury.org/php/apt.gpg
+        dest: "/tmp/apt.gpg"
+        force: yes
+
+    - name: Add an Apt signing key, uses whichever key is at the URL
+      apt_key:
+        file: "/tmp/apt.gpg"
+        state: present
+
+    - name: Preinstall
+      apt:
+        pkg:
+          - "ca-certificates"
+          - "apt-transport-https"
+          - "gnupg2"
+          - "software-properties-common"
+          # - "certbot"
+          - "python3-certbot-nginx"
+          - "lsb-release"
+          - "curl"
+          - "mysql-server"
+          - "redis-server"
+          - "python3-setuptools"
+          - "python3-pip"
+          - "less"
+
+    - name: Add specified php SURY repository into sources list
+      apt_repository:
+        repo: deb https://packages.sury.org/php/ stretch main
+        update_cache: yes
+        state: present
+      notify:
+        - update cahce
+
+    - name: Add the nginx signing key
+      apt_key:
+        url: https://nginx.org/keys/nginx_signing.key
+        state: present
+      notify:
+        - update cahce
+
+    - name: Add specified NGINX repository into sources list
+      apt_repository:
+        repo: "{{ item }}"
+        update_cache: yes
+        state: present
+      with_items:
+        - deb https://nginx.org/packages/debian/ stretch nginx
+        - deb-src https://nginx.org/packages/debian/ stretch nginx
+      notify:
+        - update cahce
+
+    - name: Install php, nginx and belongings
+      apt:
+        pkg:
+          - "nginx"
+          - "php{{ php_version }}"
+          - "php{{ php_version }}-fpm"
+          - "php{{ php_version }}-mysql"
+          - "php{{ php_version }}-cli"
+          - "php{{ php_version }}-curl"
+          - "php{{ php_version }}-gd"
+          - "php{{ php_version }}-common"
+          - "php{{ php_version }}-mbstring"
+          - "php{{ php_version }}-xml"
+          - "php{{ php_version }}-xmlrpc"
+          - "php{{ php_version }}-soap"
+          - "php{{ php_version }}-imagick"
+          - "php{{ php_version }}-intl"
+          - "php{{ php_version }}-zip"
+          - "php{{ php_version }}-dev"
+          - "php{{ php_version }}-imap"
+          - "php{{ php_version }}-opcache"
+          - "php{{ php_version }}-redis"
+
+    - name: Download WordPress
+      get_url:
+        url: "https://wordpress.org/latest.tar.gz"
+        dest: "/tmp/wordpress-{{ wordpress_version }}.tar.gz"
+        force: yes
+      tags:
+        - wordpress
+        - wordpress:install
+
+    - name: Create www dir
+      file:
+        path: "{{ www_docroot }}"
+        state: directory
+
+    - name: Create nginx global dir
+      file:
+        path: "{{ nginx_global }}"
+        state: directory
+
+    - name: Create nginx ssl domain dir
+      file:
+        path: "/etc/ssl/{{ domain_name }}"
+        state: directory
+
+    - name: Extract archive
+      unarchive:
+        src: "/tmp/wordpress-{{ wordpress_version }}.tar.gz"
+        dest: "{{ www_docroot }}"
+        creates: "{{ www_docroot }}wordpress"
+        group: www-data
+        owner: www-data
+        remote_src: True
+      tags:
+        - wordpress
+        - wordpress:install
+
+    ## 755 - 644 u=rwX,g=rX,o=rX
+    ## 750 a+rwx,g-w,o-rwx
+    ## 640 a+rwx,u-x,g-wx,o-rwx
+    - name: Set the correct permissions on the WordPress directories and files
+      file:
+        path: "{{ www_docroot }}wordpress/"
+        mode: u+rwX,g-w,o-rwx
+        recurse: yes
+
+    - name: Install python sql connector
+      pip:
+        name:
+          - PyMySQL
+      tags:
+        - wordpress
+        - wordpress:install
+
+    - name: Create the wordpress sql db creation file
+      template:
+        src: grant.sql.j2
+        dest: /tmp/grant.sql
+
+    - name: Create the wordpress config file
+      template:
+        src: config-localhost.php.j2
+        dest: "{{ www_docroot }}wordpress/wp-config.php"
+        group: www-data
+        owner: www-data
+
+    - name: Replace salt with fetched one from https://api.wordpress.org/secret-key/1.1/salt/
+      uri:
+        url: https://api.wordpress.org/secret-key/1.1/salt/
+        return_content: yes
+      register: salt
+
+    - name: Insert salt
+      replace:
+        path: "{{ www_docroot }}wordpress/wp-config.php"
+        regexp: '##SALT'
+        replace: "{{ salt.content }}"
+
+    - name: Create a new database with name 'wordpress'
+      shell: |
+        mysql -u root < /tmp/grant.sql
+      become: True
+      notify:
+        - restart mysql
+
+    - name: Check for php nginx direcotry
+      shell: grep -c "^document_root$fastcgi_script_name" /etc/nginx/fastcgi_params || true
+      register: test_grep
+
+    - name: Copy the nginx.conf
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - reload nginx
+
+    - name: Copy the global include nginx.conf
+      template:
+        src: "nginx.{{ item }}.j2"
+        dest: "{{ nginx_global }}/{{ item }}"
+      with_items:
+        - "wordpress.conf"
+        - "restrictions.conf"
+        - "ssl-server.conf"
+      notify:
+        - reload nginx
+
+    - name: Copy the default.conf into conf.d
+      template:
+        src: default.conf.j2
+        dest: /etc/nginx/conf.d/default.conf
+      notify:
+        - reload nginx
+
+    - name: Copy private certificate
+      template:
+        src: cert_private.pem.j2
+        dest: "/etc/ssl/{{ domain_name }}/private.pem"
+      notify:
+        - reload nginx
+
+    - name: Copy orig certificate
+      template:
+        src: orig.crt.j2
+        dest: "/etc/ssl/{{ domain_name }}/orig.crt"
+      notify:
+        - reload nginx
+
+    - name: In order for Nginx to correctly serve PHP
+      lineinfile:
+        path: /etc/nginx/fastcgi_params
+        line: "fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;"
+      when: test_grep.stdout == "0"
+      notify:
+        - reload nginx
+
+   # - name: Add certificate within certbot
+    #  shell: |
+    #    certbot --nginx certonly -d {{ domain_name }} -d www.{{ domain_name }} -m your.name.workgmail.com --agree-tos
+
+    - name: Update php.ini values
+      replace:
+        dest: "/etc/php/7.4/fpm/php.ini"
+        regexp: '^{{ item }}.*$'
+        replace: '{{ item }} = 10M'
+        backup: yes
+      with_items:
+        - upload_max_filesize
+        - post_max_size
+
+    - name: Installing WP-CLI
+      get_url:
+        url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        dest: "/usr/local/bin/wp"
+        force: yes
+        mode: u+rwx,g*rwx
+        group: "{{ user_www }}"
+        owner: "{{ user_www }}"
+      notify:
+        - test wpcli
